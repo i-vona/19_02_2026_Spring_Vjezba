@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -42,6 +43,28 @@ public class HardwareServiceImpl implements HardwareService {
                         convertSearchHardwareDtoToSearchHardware(searchHardwareDTO))
                 .stream().map(this::convertHardwareToHardwareDTO)
                 .toList();
+    }
+
+    @Override
+    public Optional<HardwareDTO> updateHardware(HardwareDTO hardwareDTO, Integer id) {
+        Optional<Hardware> updatedHardwareOptional =
+                hardwareRepository.updateHardware(convertHardwareDtoToHardware(hardwareDTO), id);
+
+        if(updatedHardwareOptional.isPresent()) {
+            return Optional.of(convertHardwareToHardwareDTO(updatedHardwareOptional.get()));
+        }
+
+        return Optional.empty();
+    }
+
+    @Override
+    public boolean hardwareByIdExists(Integer id) {
+        return hardwareRepository.hardwareByIdExists(id);
+    }
+
+    @Override
+    public boolean deleteHardwareById(Integer id) {
+        return hardwareRepository.deleteHardwareById(id);
     }
 
     private HardwareDTO convertHardwareToHardwareDTO(Hardware hardware) {

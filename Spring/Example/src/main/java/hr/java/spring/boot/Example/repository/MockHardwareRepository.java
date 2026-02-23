@@ -93,5 +93,31 @@ public class MockHardwareRepository implements HardwareRepository {
 
         return hardware;
     }
-    
+
+    @Override
+    public Optional<Hardware> updateHardware(Hardware hardwareToUpdate, Integer id) {
+        Optional<Hardware> storedHardwareOptional = hardwareList.stream().filter(h -> h.getId().equals(id)).findFirst();
+        if(storedHardwareOptional.isPresent()) {
+            Hardware storedHardware = storedHardwareOptional.get();
+            storedHardware.setName(hardwareToUpdate.getName());
+            storedHardware.setCategory(hardwareToUpdate.getCategory());
+            storedHardware.setDescription(hardwareToUpdate.getDescription());
+            storedHardware.setPrice(hardwareToUpdate.getPrice());
+
+            return Optional.of(storedHardware);
+        }
+
+        return Optional.empty();
+    }
+
+    @Override
+    public boolean hardwareByIdExists(Integer id) {
+        return hardwareList.stream()
+                .anyMatch(h -> h.getId().equals(id));
+    }
+
+    @Override
+    public boolean deleteHardwareById(Integer id) {
+        return hardwareList.removeIf(h -> h.getId().equals(id));
+    }
 }
