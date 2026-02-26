@@ -34,7 +34,7 @@ public class HardwareController {
     }
 
     @PutMapping("/{hardwareId}")
-    public ResponseEntity<HardwareDTO> updateHardware(@Valid @RequestBody HardwareDTO hardwareDTO, @PathVariable Integer hardwareId) {
+    public ResponseEntity<HardwareDTO> updateHardware(@Valid @RequestBody HardwareDTO hardwareDTO, @PathVariable Long hardwareId) {
         if(hardwareService.hardwareByIdExists(hardwareId)) {
             hardwareService.updateHardware(hardwareDTO, hardwareId);
             return ResponseEntity.ok(hardwareDTO);
@@ -45,7 +45,7 @@ public class HardwareController {
     }
 
     @DeleteMapping("/{hardwareId}")
-    public ResponseEntity<?> deleteHardware(@PathVariable Integer hardwareId) {
+    public ResponseEntity<?> deleteHardware(@PathVariable Long hardwareId) {
         if(hardwareService.hardwareByIdExists(hardwareId)) {
             boolean result = hardwareService.deleteHardwareById(hardwareId);
             if(result) {

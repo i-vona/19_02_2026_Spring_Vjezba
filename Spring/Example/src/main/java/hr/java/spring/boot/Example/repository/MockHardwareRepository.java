@@ -19,12 +19,12 @@ public class MockHardwareRepository implements HardwareRepository {
     static {
         hardwareList = new ArrayList<>();
 
-        Hardware firstHardware = new Hardware(1, "Intel Core i9-14900K", "High-performance desktop processor", new BigDecimal(589), Category.CPU);
-        Hardware secondHardware = new Hardware(2, "NVIDIA GeForce RTX 4090", "Flagship gaming graphics card", new BigDecimal(1599), Category.GPU);
-        Hardware thirdHardware = new Hardware(3, "ASUS ROG Maximus Z790", "High-end Intel motherboard", new BigDecimal(699), Category.MBO);
-        Hardware fourthHardware = new Hardware(4, "Corsair Vengeance DDR5 32GB", "High-speed desktop memory kit", new BigDecimal(129), Category.RAM);
-        Hardware fifthHardware = new Hardware(5, "Samsung 990 Pro 2TB NVMe", "Fast PCIe 4.0 SSD", new BigDecimal(179), Category.STORAGE);
-        Hardware sixthHardware = new Hardware(6, "Corsair RM1000x PSU", "1000W modular power supply", new BigDecimal(189), Category.OTHER);
+        Hardware firstHardware = new Hardware(1L, "Intel Core i9-14900K", "High-performance desktop processor", new BigDecimal(589), Category.CPU);
+        Hardware secondHardware = new Hardware(2L, "NVIDIA GeForce RTX 4090", "Flagship gaming graphics card", new BigDecimal(1599), Category.GPU);
+        Hardware thirdHardware = new Hardware(3L, "ASUS ROG Maximus Z790", "High-end Intel motherboard", new BigDecimal(699), Category.MBO);
+        Hardware fourthHardware = new Hardware(4L, "Corsair Vengeance DDR5 32GB", "High-speed desktop memory kit", new BigDecimal(129), Category.RAM);
+        Hardware fifthHardware = new Hardware(5L, "Samsung 990 Pro 2TB NVMe", "Fast PCIe 4.0 SSD", new BigDecimal(179), Category.STORAGE);
+        Hardware sixthHardware = new Hardware(6L, "Corsair RM1000x PSU", "1000W modular power supply", new BigDecimal(189), Category.OTHER);
 
         hardwareList.add(firstHardware);
         hardwareList.add(secondHardware);
@@ -45,8 +45,14 @@ public class MockHardwareRepository implements HardwareRepository {
     }
 
     @Override
-    public void saveNewHardware(Hardware hardware) {
+    public Optional<Hardware> getHardwareById(Long id) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Hardware saveNewHardware(Hardware hardware) {
         hardwareList.add(hardware);
+        return hardware;
     }
 
     @Override
@@ -95,7 +101,7 @@ public class MockHardwareRepository implements HardwareRepository {
     }
 
     @Override
-    public Optional<Hardware> updateHardware(Hardware hardwareToUpdate, Integer id) {
+    public Optional<Hardware> updateHardware(Hardware hardwareToUpdate, Long id) {
         Optional<Hardware> storedHardwareOptional = hardwareList.stream().filter(h -> h.getId().equals(id)).findFirst();
         if(storedHardwareOptional.isPresent()) {
             Hardware storedHardware = storedHardwareOptional.get();
@@ -111,13 +117,13 @@ public class MockHardwareRepository implements HardwareRepository {
     }
 
     @Override
-    public boolean hardwareByIdExists(Integer id) {
+    public boolean hardwareByIdExists(Long id) {
         return hardwareList.stream()
                 .anyMatch(h -> h.getId().equals(id));
     }
 
     @Override
-    public boolean deleteHardwareById(Integer id) {
+    public boolean deleteHardwareById(Long id) {
         return hardwareList.removeIf(h -> h.getId().equals(id));
     }
 }

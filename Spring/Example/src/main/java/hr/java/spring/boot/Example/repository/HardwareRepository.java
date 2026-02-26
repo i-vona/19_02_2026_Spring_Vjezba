@@ -9,9 +9,10 @@ import java.util.Optional;
 public interface HardwareRepository {
     List<Hardware> getAllHardware();
     List<Hardware> getHardwareByName(String hardwareName);
-    void saveNewHardware(Hardware hardware);
+    Optional<Hardware> getHardwareById(Long id);
+    Hardware saveNewHardware(Hardware hardware);
     List<Hardware> filterByParameters(SearchHardware searchHardware);
-    Optional<Hardware> updateHardware(Hardware hardwareToUpdate, Integer id);
-    boolean hardwareByIdExists(Integer id);
-    boolean deleteHardwareById(Integer id);
+    Optional<Hardware> updateHardware(Hardware hardwareToUpdate, Long id);
+    boolean hardwareByIdExists(Long id);
+    boolean deleteHardwareById(Long id);
 }

@@ -14,7 +14,7 @@ public class SearchHardware extends Hardware {
     private BigDecimal lowerPrice;
     private BigDecimal upperPrice;
 
-    public SearchHardware(Integer id,
+    public SearchHardware(Long id,
                          String name,
                          String description,
                          BigDecimal lowerPrice,

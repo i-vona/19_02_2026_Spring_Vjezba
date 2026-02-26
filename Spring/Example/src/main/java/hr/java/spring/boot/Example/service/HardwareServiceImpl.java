@@ -33,8 +33,8 @@ public class HardwareServiceImpl implements HardwareService {
     }
 
     @Override
-    public void saveNewHardware(HardwareDTO hardware) {
-        hardwareRepository.saveNewHardware(convertHardwareDtoToHardware(hardware));
+    public Hardware saveNewHardware(HardwareDTO hardware) {
+        return hardwareRepository.saveNewHardware(convertHardwareDtoToHardware(hardware));
     }
 
     @Override
@@ -46,7 +46,7 @@ public class HardwareServiceImpl implements HardwareService {
     }
 
     @Override
-    public Optional<HardwareDTO> updateHardware(HardwareDTO hardwareDTO, Integer id) {
+    public Optional<HardwareDTO> updateHardware(HardwareDTO hardwareDTO, Long id) {
         Optional<Hardware> updatedHardwareOptional =
                 hardwareRepository.updateHardware(convertHardwareDtoToHardware(hardwareDTO), id);
 
@@ -58,12 +58,12 @@ public class HardwareServiceImpl implements HardwareService {
     }
 
     @Override
-    public boolean hardwareByIdExists(Integer id) {
+    public boolean hardwareByIdExists(Long id) {
         return hardwareRepository.hardwareByIdExists(id);
     }
 
     @Override
-    public boolean deleteHardwareById(Integer id) {
+    public boolean deleteHardwareById(Long id) {
         return hardwareRepository.deleteHardwareById(id);
     }
 
@@ -74,7 +74,7 @@ public class HardwareServiceImpl implements HardwareService {
     }
 
     private Hardware convertHardwareDtoToHardware(HardwareDTO hardwareDTO) {
-        Integer latestId =
+        Long latestId =
                 hardwareRepository.getAllHardware().stream()
                         .max((a1, a2) -> a1.getId().compareTo(a2.getId()))
                         .get().getId();
