@@ -46,9 +46,8 @@ public class JdbcHardwareRepository implements HardwareRepository {
     @Override
     public Hardware saveNewHardware(Hardware hardware) {
         final String SQL =
-                "INSERT INTO HARDWARE (name, description, price, categoryId) OUTPUT INSERTED.id VALUES (?, ?, ?, ?)";
-        Long generatedId = jdbcTemplate.queryForObject(SQL, Long.class, hardware.getName(), hardware.getDescription(), hardware.getPrice(), hardware.getCategory().getId());
-        hardware.setId(generatedId);
+                "INSERT INTO HARDWARE (name, description, price, categoryId) VALUES (?, ?, ?, ?)";
+        jdbcTemplate.update(SQL, hardware.getName(), hardware.getDescription(), hardware.getPrice(), hardware.getCategory().getId());
         return hardware;
     }
 
