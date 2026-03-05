@@ -1,13 +1,17 @@
+--DROP TABLE IF EXISTS Category;
+--
 --CREATE TABLE Category
 --(
---    id IDENTITY PRIMARY KEY,
+--    id int PRIMARY KEY IDENTITY,
 --    name        VARCHAR(50)    NOT NULL,
 --    description VARCHAR(255)
 --);
 --
+--DROP TABLE IF EXISTS Hardware;
+--
 --CREATE TABLE Hardware
 --(
---    id IDENTITY PRIMARY KEY,
+--    id int PRIMARY KEY IDENTITY,
 --    name        VARCHAR(50)    NOT NULL,
 --    description VARCHAR(255),
 --    price       DECIMAL(10, 2) NOT NULL,
